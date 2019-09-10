@@ -6,6 +6,7 @@
 package proyectoalgoritmos;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -49,7 +50,7 @@ public class ProyectoAlgoritmos {
                                         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0},};
     
     public static void main(String[] args) {
-        
+        menuTamano();
     }
     
     public static void llenarGrafo() {
@@ -75,6 +76,38 @@ public class ProyectoAlgoritmos {
                     origen.addArco(new Arco(origen, destino, matrizAdy[i][j], false));
                 }
             }
+        }
+    }
+    
+    public static void menuTamano(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Seleccione el tamaño del grafo que desea realizar:\n"
+                + "1) 5 vertices\n"
+                + "2) 10 vertices\n"
+                + "3) 20 vertices\n"
+                + "4) 30 vertices\n"
+                + "5) 50 vertices\n");
+        String option = scanner.next();
+        switch(option){
+            case "1":
+                System.out.println("Ha seleccionado la opción 1.");
+                break;
+            case "2":
+                System.out.println("Ha seleccionado la opción 2.");
+                break;
+            case "3":
+                System.out.println("Ha seleccionado la opción 3.");
+                break;
+            case "4":
+                System.out.println("Ha seleccionado la opción 4.");
+                break;
+            case "5":
+                System.out.println("Ha seleccionado la opción 5.");
+                break;
+            default: 
+                System.out.println("Elección inválida, por favor seleccione una opcción válida.");
+                menuTamano();
+                break;
         }
     }
     
