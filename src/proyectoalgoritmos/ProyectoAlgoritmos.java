@@ -6,6 +6,7 @@
 package proyectoalgoritmos;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -51,6 +52,78 @@ public class ProyectoAlgoritmos {
     public static void main(String[] args) {
         
     }
+    
+    public static void crearMatriz()
+        {
+            matrizAdy = new int[vertices][vertices];
+            Random random = new Random();
+            int cont = 0;
+
+            if (vertices == 5)
+            {
+                matrizAdy = matriz5;
+            }
+            else if (vertices == 10)
+            {
+                matrizAdy = matriz10;
+            }
+            else if (vertices == 20)
+            {
+                matrizAdy = matriz20;
+            }
+            else
+            {
+                for (int i = 0; i < vertices; i++)
+                {
+                    for (int j = 0; j < vertices; j++)
+                    {
+                        if (i < j && (i + 1) == j)
+                        {
+                            matrizAdy[i][j] = random.nextInt(1);
+                            cont++;
+
+                            if (i == 0 || i == (vertices / 2) - 2 || i == (vertices / 2) + 2)
+                            {
+                                matrizAdy[i][vertices - 1] = random.nextInt(1);
+                                cont++;
+                            }
+                        }
+
+
+                    }
+                }
+
+                while (cont < arcos - 2)
+                {
+                    for (int i = 0; i < vertices; i++)
+                    {
+                        int limite = 1;
+                        if (i <= vertices - 3 && limite <= 2)
+                        {
+                            int j = 1;
+                            //int j = random.nextInt(2 + i, vertices - 1);
+                            if (matrizAdy[i][j] == 0 && i + 2 <= j)
+                            {
+                                matrizAdy[i][j] = random.nextInt(20);
+                                limite++;
+                                cont++;
+                            }
+                        }
+                    }
+                }
+            }
+
+            /*for (int i = 0; i < vertices; i++)
+            {
+                for (int j = 0; j < vertices; j++)
+                {
+                    Console.Write(string.Format("{0} ", matrizAdy[i, j]));
+                }
+                Console.Write(Environment.NewLine + Environment.NewLine);
+            }*/
+
+            llenarGrafo();
+        }
     
     public static void llenarGrafo() {
         g = new Grafo();
