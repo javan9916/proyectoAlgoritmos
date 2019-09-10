@@ -29,5 +29,9 @@ public class Grafo {
         return vertices;
     }
     
+    public Vertice buscarVerticeGrafo(int i) {
+        return vertices.get(i);
+    }
+    
     
 }
