@@ -14,15 +14,15 @@ import java.util.ArrayList;
 public class Vertice {
     private String vertice;
     private Boolean visitado;
-    private int veces;
     private Boolean anadido;
+    private int beneficio;
     private ArrayList<Arco> arcos;
     
-    public Vertice(String vertice, Boolean visitado, int veces, Boolean anadido) {
+    public Vertice(String vertice, Boolean visitado, Boolean anadido, int beneficio) {
         this.vertice = vertice;
         this.visitado = visitado;
-        this.veces = veces;
         this.anadido = anadido;
+        this.beneficio = beneficio;
     }
 
     public void setVertice(String vertice) {
@@ -41,14 +41,6 @@ public class Vertice {
         return visitado;
     }
 
-    public void addVeces(int veces) {
-        this.veces++;
-    }
-    
-    public int getVeces() {
-        return veces;
-    }
-
     public void setAnadido(Boolean anadido) {
         this.anadido = anadido;
     }
@@ -57,7 +49,18 @@ public class Vertice {
         return anadido;
     }
 
+    public void setBeneficio(int beneficio) {
+        this.beneficio = beneficio;
+    }
+
+    public int getBeneficio() {
+        return beneficio;
+    }
+
     public void addArco(Arco arco) {
+        if (arcos == null)
+           this.arcos = new ArrayList<>();
+        
         this.arcos.add(arco);
     }
 

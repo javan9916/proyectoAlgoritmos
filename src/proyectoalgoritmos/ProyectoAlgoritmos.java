@@ -52,6 +52,7 @@ public class ProyectoAlgoritmos {
     
     public static void main(String[] args) {
         menuTamano();
+        printVerts();
     }
     
     public static void crearMatriz()
@@ -72,7 +73,7 @@ public class ProyectoAlgoritmos {
             {
                 matrizAdy = matriz20;
             }
-            else
+            /*else
             {
                 for (int i = 0; i < vertices; i++)
                 {
@@ -89,8 +90,6 @@ public class ProyectoAlgoritmos {
                                 cont++;
                             }
                         }
-
-
                     }
                 }
 
@@ -112,7 +111,7 @@ public class ProyectoAlgoritmos {
                         }
                     }
                 }
-            }
+            } */
 
             /*for (int i = 0; i < vertices; i++)
             {
@@ -130,10 +129,10 @@ public class ProyectoAlgoritmos {
         g = new Grafo();
         verticesLocales = new ArrayList<>();
         arcosLocales = new ArrayList<>();
+        Random random = new Random();
 
         for (int i = 0; i < vertices; i++) {
-            Vertice nuevo = new Vertice(Integer.toString(i), false, 0, false);
-            verticesLocales.add(nuevo);
+            Vertice nuevo = new Vertice(Integer.toString(i), false, false, random.nextInt(50));
             g.addVertice(nuevo);
         }
 
@@ -144,11 +143,17 @@ public class ProyectoAlgoritmos {
                     Vertice destino = g.buscarVerticeGrafo(j);
                     
                     if (origen != null && destino != null)
-                        arcosLocales.add(new Arco(origen, destino, matrizAdy[i][j], false));
+                        arcosLocales.add(new Arco(origen, destino, 0, false));
                     
-                    origen.addArco(new Arco(origen, destino, matrizAdy[i][j], false));
+                    origen.addArco(new Arco(origen, destino, 0, false));
                 }
             }
+        }
+    }
+    
+    public static void printVerts() {
+        for (int i = 0; i < vertices; i++) {
+            System.out.println(g.getVertices().get(i).getBeneficio());
         }
     }
     
@@ -160,16 +165,21 @@ public class ProyectoAlgoritmos {
                 + "3) 20 vertices\n"
                 + "4) 30 vertices\n"
                 + "5) 50 vertices\n");
+        System.out.print("Opción: ");
         String option = scanner.next();
         switch(option){
             case "1":
                 System.out.println("Ha seleccionado la opción 1.");
+                vertices = 5;
+                crearMatriz();
                 break;
             case "2":
                 System.out.println("Ha seleccionado la opción 2.");
+                vertices = 10;
                 break;
             case "3":
                 System.out.println("Ha seleccionado la opción 3.");
+                vertices = 20;
                 break;
             case "4":
                 System.out.println("Ha seleccionado la opción 4.");
