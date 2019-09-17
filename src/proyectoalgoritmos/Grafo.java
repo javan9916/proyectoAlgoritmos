@@ -29,7 +29,8 @@ public class Grafo {
         return vertices;
     }
     
-    public Vertice buscarVerticeGrafo(int i) {
+    public Vertice buscarVerticeGrafo(String v) {
+        int i = Integer.parseInt(v);
         return vertices.get(i);
     }
     

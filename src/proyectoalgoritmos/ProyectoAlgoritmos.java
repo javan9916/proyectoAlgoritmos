@@ -18,7 +18,6 @@ public class ProyectoAlgoritmos {
     public static ArrayList<Vertice> verticesLocales;
     public static ArrayList<Arco> arcosLocales;
     public static int vertices;
-    public static int arcos;
     public static int [][] matrizAdy;
     public static int [][] matriz5 =   {{0,1,0,0,0},
                                         {1,0,1,1,0},
@@ -141,11 +140,10 @@ public class ProyectoAlgoritmos {
         printVerts();
     }
     
-    public static void crearMatriz()
-        {
-            matrizAdy = new int[vertices][vertices];
-            Random random = new Random();
-            int cont = 0;
+    public static void crearMatriz(){
+        matrizAdy = new int[vertices][vertices];
+        Random random = new Random();
+        int cont = 0;
 
         switch (vertices) {
             case 5:
@@ -167,8 +165,8 @@ public class ProyectoAlgoritmos {
                 break;
         }
 
-            llenarGrafo();
-        }
+        llenarGrafo();
+    }
     
     public static void llenarGrafo() {
         g = new Grafo();
@@ -177,15 +175,15 @@ public class ProyectoAlgoritmos {
         Random random = new Random();
 
         for (int i = 0; i < vertices; i++) {
-            Vertice nuevo = new Vertice(Integer.toString(i), false, false, random.nextInt(50));
+            Vertice nuevo = new Vertice(Integer.toString(i), false, random.nextInt(50)+1);
             g.addVertice(nuevo);
         }
 
         for (int i = 0; i < vertices; i++) {
             for (int j = 0; j < vertices; j++) {
                 if (matrizAdy[i][j] != 0) {
-                    Vertice origen = g.buscarVerticeGrafo(i);
-                    Vertice destino = g.buscarVerticeGrafo(j);
+                    Vertice origen = g.buscarVerticeGrafo(Integer.toString(i));
+                    Vertice destino = g.buscarVerticeGrafo(Integer.toString(j));
                     
                     if (origen != null && destino != null)
                         arcosLocales.add(new Arco(origen, destino, 0, false));
@@ -197,9 +195,15 @@ public class ProyectoAlgoritmos {
     }
     
     public static void printVerts() {
+        System.out.print("Beneficios: ");
         for (int i = 0; i < vertices; i++) {
-            System.out.println(g.getVertices().get(i).getBeneficio());
+            if (g.getVertices().get(i) != null) {
+                System.out.print(g.getVertices().get(i).getBeneficio()+ ", ");
+            }
         }
+        System.out.println("");
+        
+        menuAlgoritmo();
     }
     
     public static void menuTamano(){
@@ -221,18 +225,52 @@ public class ProyectoAlgoritmos {
             case "2":
                 System.out.println("Ha seleccionado la opción 2.");
                 vertices = 10;
+                crearMatriz();
                 break;
             case "3":
                 System.out.println("Ha seleccionado la opción 3.");
                 vertices = 20;
+                crearMatriz();
                 break;
             case "4":
                 System.out.println("Ha seleccionado la opción 4.");
                 vertices = 30;
+                crearMatriz();
                 break;
             case "5":
                 System.out.println("Ha seleccionado la opción 5.");
                 vertices = 50;
+                crearMatriz();
+                break;
+            default: 
+                System.out.println("Elección inválida, por favor seleccione una opcción válida.");
+                menuTamano();
+                break;
+        }
+    }
+    
+    public static void menuAlgoritmo(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Algoritmos:\n"
+                + "1) Algoritmo A\n"
+                + "2) Algoritmo B\n"
+                + "3) Algoritmo C\n"
+                + "4) Algoritmo D\n");
+        System.out.print("Opción: ");
+        String option = scanner.next();
+        switch(option){
+            case "1":
+                System.out.println("Ha seleccionado el algorimo A.");
+                algoritmoA();
+                break;
+            case "2":
+                System.out.println("Ha seleccionado el algorimo B.");
+                break;
+            case "3":
+                System.out.println("Ha seleccionado el algorimo C.");
+                break;
+            case "4":
+                System.out.println("Ha seleccionado el algorimo D.");
                 break;
             default: 
                 System.out.println("Elección inválida, por favor seleccione una opcción válida.");
@@ -242,7 +280,51 @@ public class ProyectoAlgoritmos {
     }
     
     public static void algoritmoA() {
+        Grafo u = new Grafo();
+        Vertice mayor = getMayorBeneficio();
         
+        while (mayor.getBeneficio() != 0) {
+            u.addVertice(mayor);
+            mayor = getMayorBeneficio();
+        }
+        
+        System.out.println("Vertices de u:");
+        for (int i = 0; i < u.getVertices().size(); i++) {
+            System.out.print(u.getVertices().get(i).getVertice() + ", ");
+        }
+        
+        int beneficio = 0;
+        for (int i = 0; i < u.getVertices().size(); i++) {
+            beneficio += u.getVertices().get(i).getBeneficio();
+        }
+        
+        System.out.println("Beneficio Total: " + beneficio);
+    }
+    
+    public static Vertice getMayorBeneficio() {
+        ArrayList<Vertice> v = g.getVertices();
+        Vertice mayor = new Vertice("", false, 0);
+        
+        for (int i = 0; i < v.size(); i++) {
+            if (!v.get(i).getAdyacente()) {
+                if (mayor.getBeneficio() < v.get(i).getBeneficio()) {
+                    mayor = v.get(i);
+                }
+            }
+        }
+        mayor.setAdyacente(true);
+        if (mayor.getBeneficio() != 0) {
+           marcarAdyacentes(mayor); 
+        }
+        
+        return mayor;
+    }
+    
+    public static void marcarAdyacentes(Vertice v) {
+        ArrayList<Arco> arcos = v.getArcos();
+        for (int i = 0; i < arcos.size(); i++) {
+            g.buscarVerticeGrafo(arcos.get(i).getDestino().getVertice()).setAdyacente(true);
+        }
     }
     
 }
