@@ -147,66 +147,25 @@ public class ProyectoAlgoritmos {
             Random random = new Random();
             int cont = 0;
 
-            if (vertices == 5)
-            {
+        switch (vertices) {
+            case 5:
                 matrizAdy = matriz5;
-            }
-            else if (vertices == 10)
-            {
+                break;
+            case 10:
                 matrizAdy = matriz10;
-            }
-            else if (vertices == 20)
-            {
+                break;
+            case 20:
                 matrizAdy = matriz20;
-            }
-            /*else
-            {
-                for (int i = 0; i < vertices; i++)
-                {
-                    for (int j = 0; j < vertices; j++)
-                    {
-                        if (i < j && (i + 1) == j)
-                        {
-                            matrizAdy[i][j] = random.nextInt(1);
-                            cont++;
-
-                            if (i == 0 || i == (vertices / 2) - 2 || i == (vertices / 2) + 2)
-                            {
-                                matrizAdy[i][vertices - 1] = random.nextInt(1);
-                                cont++;
-                            }
-                        }
-                    }
-                }
-
-                while (cont < arcos - 2)
-                {
-                    for (int i = 0; i < vertices; i++)
-                    {
-                        int limite = 1;
-                        if (i <= vertices - 3 && limite <= 2)
-                        {
-                            int j = 1;
-                            //int j = random.nextInt(2 + i, vertices - 1);
-                            if (matrizAdy[i][j] == 0 && i + 2 <= j)
-                            {
-                                matrizAdy[i][j] = random.nextInt(20);
-                                limite++;
-                                cont++;
-                            }
-                        }
-                    }
-                }
-            } */
-
-            /*for (int i = 0; i < vertices; i++)
-            {
-                for (int j = 0; j < vertices; j++)
-                {
-                    Console.Write(string.Format("{0} ", matrizAdy[i, j]));
-                }
-                Console.Write(Environment.NewLine + Environment.NewLine);
-            }*/
+                break;
+            case 30:
+                matrizAdy = matriz30;
+                break;
+            case 50:
+                matrizAdy = matriz50;
+                break;
+            default:
+                break;
+        }
 
             llenarGrafo();
         }
@@ -269,9 +228,11 @@ public class ProyectoAlgoritmos {
                 break;
             case "4":
                 System.out.println("Ha seleccionado la opción 4.");
+                vertices = 30;
                 break;
             case "5":
                 System.out.println("Ha seleccionado la opción 5.");
+                vertices = 50;
                 break;
             default: 
                 System.out.println("Elección inválida, por favor seleccione una opcción válida.");
