@@ -265,6 +265,7 @@ public class ProyectoAlgoritmos {
                 break;
             case "2":
                 System.out.println("Ha seleccionado el algorimo B.");
+                algoritmoB();
                 break;
             case "3":
                 System.out.println("Ha seleccionado el algorimo C.");
@@ -288,7 +289,7 @@ public class ProyectoAlgoritmos {
             mayor = getMayorBeneficio();
         }
         
-        System.out.println("Vertices de u:");
+        System.out.print("Vertices de U: ");
         for (int i = 0; i < u.getVertices().size(); i++) {
             System.out.print(u.getVertices().get(i).getVertice() + ", ");
         }
@@ -297,7 +298,7 @@ public class ProyectoAlgoritmos {
         for (int i = 0; i < u.getVertices().size(); i++) {
             beneficio += u.getVertices().get(i).getBeneficio();
         }
-        
+        System.out.println("");
         System.out.println("Beneficio Total: " + beneficio);
     }
     
@@ -318,6 +319,22 @@ public class ProyectoAlgoritmos {
         }
         
         return mayor;
+    }
+    
+    public static void algoritmoB(){
+        int bMax = 0;
+        Vertice vMax = null;
+        ArrayList<Vertice> verts = g.getVertices();
+        
+        for(int i = 0; i < verts.size(); i++){
+            if(verts.get(i).getBeneficio() >= bMax){
+                bMax = verts.get(i).getBeneficio();
+                vMax = verts.get(i);
+            }
+        }
+        
+        System.out.println("Vertice de mayor beneficio: " + vMax.getVertice() + "\n" 
+                +"Con un beneficio de: " + Integer.toString(vMax.getBeneficio()));
     }
     
     public static void marcarAdyacentes(Vertice v) {
