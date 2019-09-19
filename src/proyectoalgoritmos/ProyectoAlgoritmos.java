@@ -269,6 +269,7 @@ public class ProyectoAlgoritmos {
                 break;
             case "3":
                 System.out.println("Ha seleccionado el algorimo C.");
+                algoritmoC();
                 break;
             case "4":
                 System.out.println("Ha seleccionado el algorimo D.");
@@ -307,13 +308,13 @@ public class ProyectoAlgoritmos {
         Vertice mayor = new Vertice("", false, 0);
         
         for (int i = 0; i < v.size(); i++) {
-            if (!v.get(i).getAdyacente()) {
+            if (!v.get(i).getUsed()) {
                 if (mayor.getBeneficio() < v.get(i).getBeneficio()) {
                     mayor = v.get(i);
                 }
             }
         }
-        mayor.setAdyacente(true);
+        mayor.setUsed(true);
         if (mayor.getBeneficio() != 0) {
            marcarAdyacentes(mayor); 
         }
@@ -337,11 +338,80 @@ public class ProyectoAlgoritmos {
                 +"Con un beneficio de: " + Integer.toString(vMax.getBeneficio()));
     }
     
+    public static void algoritmoBv2(ArrayList<Vertice> seleccion){
+        Vertice menor = getMenorBeneficio();
+    }
+    
+    public static Vertice getMenorBeneficio(){
+        ArrayList<Vertice> vertices = g.getVertices();
+        int menorB = Integer.MAX_VALUE;
+        Vertice menorV = null;
+        for(int i = 0; i < vertices.size(); i++){
+            if(!vertices.get(i).getUsed()){
+                if(vertices.get(i).getBeneficio() < menorB){
+                    menorB = vertices.get(i).getBeneficio();
+                    menorV = vertices.get(i);
+                }
+            }
+        }
+        return menorV;
+    }
+    
     public static void marcarAdyacentes(Vertice v) {
         ArrayList<Arco> arcos = v.getArcos();
         for (int i = 0; i < arcos.size(); i++) {
-            g.buscarVerticeGrafo(arcos.get(i).getDestino().getVertice()).setAdyacente(true);
+            g.buscarVerticeGrafo(arcos.get(i).getDestino().getVertice()).setUsed(true);
         }
+    }
+    
+    public static void algoritmoC(){
+        ArrayList<Vertice> vertices = g.getVertices();
+        ArrayList<Vertice> selected = new ArrayList();
+        
+        Vertice mayor = getMayorAbyacentes();
+        while(mayor != null){
+            System.out.println(mayor.getVertice());
+            g.marcarVertice(mayor);
+            addSelected(selected);
+            mayor = getMayorAbyacentes();
+        }
+        
+        System.out.println("Los locales con mayor numero de ubicaciones son:");
+        int benetotal = 0;
+        for(int i = 0; i < selected.size(); i++){
+            System.out.print(selected.get(i).getVertice() + ", ");
+            benetotal += selected.get(i).getBeneficio();
+        }
+        System.out.println("El beneficio total de esta seleccion es: " + benetotal);
+    }
+    
+    public static void addSelected(ArrayList<Vertice> selected){
+        ArrayList<Vertice> vertices = g.getVertices();
+        for(int i = 0; i < vertices.size(); i++){
+            if(!vertices.get(i).getUsed()){
+                if(vertices.get(i).getArcosActivos() == 0){
+                    g.marcarVertice(vertices.get(i));
+                    selected.add(vertices.get(i));
+                    System.out.println("Seleccionado: " + vertices.get(i).getVertice());
+                }
+            }
+        }
+    }
+    
+    public static Vertice getMayorAbyacentes(){
+        ArrayList<Vertice> vertices = g.getVertices();
+        int mayorA = 0;
+        Vertice mayorV = null;
+        for(int i = 0; i < vertices.size(); i++){
+            if(!vertices.get(i).getUsed()){
+                int totales = vertices.get(i).getArcosActivos();
+                if(totales > mayorA){
+                    mayorA = totales;
+                    mayorV = vertices.get(i);
+                }
+            }    
+        }
+        return mayorV;
     }
     
 }

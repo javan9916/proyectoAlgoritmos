@@ -14,13 +14,13 @@ public class Arco {
     private Vertice origen;
     private Vertice destino;
     private int peso;
-    private Boolean anadido;
+    private Boolean used;
     
     public Arco(Vertice origen, Vertice destino, int peso, Boolean anadido) {
         this.origen = origen;
         this.destino = destino;
         this.peso = peso;
-        this.anadido = anadido;
+        this.used = anadido;
     }
 
     public void setOrigen(Vertice origen) {
@@ -47,12 +47,12 @@ public class Arco {
         return peso;
     }
 
-    public void setAnadido(Boolean anadido) {
-        this.anadido = anadido;
+    public void setUsed(Boolean used) {
+        this.used = used;
     }
 
-    public Boolean getAnadido() {
-        return anadido;
+    public Boolean getUsed() {
+        return used;
     }
     
     

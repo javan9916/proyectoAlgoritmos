@@ -24,6 +24,28 @@ public class Grafo {
         
         this.vertices.add(vertice);
     }
+    
+    public void marcarVertice(Vertice vertice){
+        for(int i = 0; i < vertices.size(); i++){
+            if(vertices.get(i) == vertice){
+                if(!vertices.get(i).getUsed()){
+                    vertices.get(i).marcarArcos();
+                    vertices.get(i).setUsed(true);
+                    System.out.println("Marcado: " + vertices.get(i).getVertice());
+                }
+            }else{
+                ArrayList<Arco> arcos = vertices.get(i).getArcos();
+                for(int j = 0; j < arcos.size(); j++){
+                    if(arcos.get(j).getDestino() == vertice){
+                        if(!arcos.get(j).getUsed()){
+                            arcos.get(j).setUsed(true);
+                            System.out.println("Marcado arco: " + arcos.get(j).getOrigen().getVertice() + "-" + arcos.get(j).getDestino().getVertice());
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     public ArrayList<Vertice> getVertices() {
         return vertices;
