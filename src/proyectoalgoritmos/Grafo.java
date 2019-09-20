@@ -69,7 +69,17 @@ public class Grafo {
         ArrayList<Vertice> v = new ArrayList<>();
         for (int i = 0; i < vertices.size(); i++) {
             if (!vertices.get(i).getUsed()) {
-                if (vertices.get(i).getArcos().isEmpty()) {
+                ArrayList<Arco> a = vertices.get(i).getArcos();
+                boolean suelto = true;
+                if (!a.isEmpty()) {
+                    for (int j = 0; j < a.size(); j++) {
+                        if (!a.get(j).getDestino().getUsed()) {
+                            suelto = false;
+                        }
+                    }
+                }
+                
+                if (suelto) {
                     v.add(vertices.get(i));
                 }
             }

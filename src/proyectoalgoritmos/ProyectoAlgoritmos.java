@@ -337,22 +337,25 @@ public class ProyectoAlgoritmos {
         }
         
         imprimirGrafo(u);
+        menuTamano();
     }
     
     public static void etapa(Grafo u) {
         int[] diferencias = new int[vertices];
-        boolean[] diferencias2 = llenarDiferencias();
         int peso;
         int diferencia;
+        int beneficio;
         
         for (int i = 0; i < vertices; i++) {
             if (!g.vertices.get(i).getUsed()) {
-                int beneficio = g.vertices.get(i).getBeneficio();
+                beneficio = g.vertices.get(i).getBeneficio();
                 ArrayList<Arco> adyacentes = g.vertices.get(i).getArcos();
                 peso = 0;
 
                 for (int j = 0; j < adyacentes.size(); j++) {
-                    peso += adyacentes.get(j).getDestino().getBeneficio();
+                    if (!adyacentes.get(j).getDestino().getUsed()) {
+                        peso += adyacentes.get(j).getDestino().getBeneficio();
+                    }
                 }
 
                 diferencia = beneficio - peso;
@@ -360,18 +363,17 @@ public class ProyectoAlgoritmos {
             }
         }
         
-        int mayor = diferencias[0];
+        int mayor = diferencias[obtenerPrimerMayor()];
         int index = 0;
-        for (int i = 0; i < diferencias.length; i++) {
-            if (diferencias2[i]) {
-                mayor = diferencias[i];
+        for (int i = 0; i < vertices; i++) {
+            if (!g.buscarVerticeGrafo(Integer.toString(i)).getUsed()) {
                 if (diferencias[i] > mayor) {
+                    mayor = diferencias[i];
                     index = i;
                 }
             } 
         }
         
-        diferencias2[index] = false;
         Vertice v = g.buscarVerticeGrafo(Integer.toString(index));
         v.setUsed(true);
         marcarAdyacentes(v);
@@ -381,20 +383,18 @@ public class ProyectoAlgoritmos {
         if (!sueltos.isEmpty()) {
             for (int i = 0; i < sueltos.size(); i++) {
                 sueltos.get(i).setUsed(true);
-                diferencias2[Integer.parseInt(sueltos.get(i).getVertice())] = false;
                 u.addVertice(sueltos.get(i));
             }
         }
-        
     }
     
-    public static boolean[] llenarDiferencias() {
-        boolean[] dif = new boolean[vertices];
-        
-        for (int i = 0; i < dif.length; i++) {
-            dif[i] = true;
+    public static int obtenerPrimerMayor() {
+        for (int i = 0; i < g.vertices.size(); i++) {
+            if (!g.vertices.get(i).getUsed()) {
+                return i;
+            }
         }
-        return dif;
+        return 0;
     }
     
     // ------------------------* Algoritmo C *------------------------
