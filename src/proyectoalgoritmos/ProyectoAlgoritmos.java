@@ -19,6 +19,13 @@ public class ProyectoAlgoritmos {
     public static ArrayList<Arco> arcosLocales;
     public static int vertices;
     public static int [][] matrizAdy;
+    
+    public static int [][] matriz5C = { {0,1,1,1,1},
+                                        {1,0,1,1,1},
+                                        {1,1,0,1,1},
+                                        {1,1,1,0,1},
+                                        {1,1,1,1,0}};
+    
     public static int [][] matriz5 =   {{0,1,0,0,0},
                                         {1,0,1,1,0},
                                         {0,1,0,0,0},
@@ -141,11 +148,121 @@ public class ProyectoAlgoritmos {
     
     
     public static void main(String[] args) {
-        menuTamano();
+        menuAlgoritmo();
         printVerts();
     }
     
-    public static void crearMatriz(){
+    public static void menuAlgoritmo(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Algoritmos:\n"
+                + "1) Algoritmo A\n"
+                + "2) Algoritmo B\n"
+                + "3) Algoritmo C\n"
+                + "4) Algoritmo D\n");
+        System.out.print("Opción: ");
+        String option = scanner.next();
+        switch(option){
+            case "1":
+                System.out.println("Ha seleccionado el algorimo A.");
+                menuTamano("a");
+                break;
+            case "2":
+                System.out.println("Ha seleccionado el algorimo B.");
+                menuTamano("b");
+                break;
+            case "3":
+                System.out.println("Ha seleccionado el algorimo C.");
+                menuTamano("c");
+                break;
+            case "4":
+                System.out.println("Ha seleccionado el algorimo D.");
+                menuTamano("d");
+                break;
+            default: 
+                System.out.println("Elección inválida, por favor seleccione una opcción válida.");
+                menuAlgoritmo();
+                break;
+        }
+    }
+    
+    public static void menuTamano(String algoritmo){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Seleccione el tamaño del grafo que desea realizar:\n"
+                + "1) 5 vertices\n"
+                + "2) 10 vertices\n"
+                + "3) 20 vertices\n"
+                + "4) 30 vertices\n"
+                + "5) 50 vertices\n");
+        System.out.print("Opción: ");
+        String option = scanner.next();
+        if (!algoritmo.equals("d")) {
+           switch(option){
+            case "1":
+                System.out.println("Ha seleccionado la opción 1.");
+                vertices = 5;
+                crearMatriz1(algoritmo);
+                break;
+            case "2":
+                System.out.println("Ha seleccionado la opción 2.");
+                vertices = 10;
+                crearMatriz1(algoritmo);
+                break;
+            case "3":
+                System.out.println("Ha seleccionado la opción 3.");
+                vertices = 20;
+                crearMatriz1(algoritmo);
+                break;
+            case "4":
+                System.out.println("Ha seleccionado la opción 4.");
+                vertices = 30;
+                crearMatriz1(algoritmo);
+                break;
+            case "5":
+                System.out.println("Ha seleccionado la opción 5.");
+                vertices = 50;
+                crearMatriz1(algoritmo);
+                break;
+            default: 
+                System.out.println("Elección inválida, por favor seleccione una opcción válida.");
+                menuTamano(algoritmo);
+                break;
+            } 
+        } else {
+            switch(option){
+            case "1":
+                System.out.println("Ha seleccionado la opción 1.");
+                vertices = 5;
+                crearMatriz2(algoritmo);
+                break;
+            case "2":
+                System.out.println("Ha seleccionado la opción 2.");
+                vertices = 10;
+                crearMatriz2(algoritmo);
+                break;
+            case "3":
+                System.out.println("Ha seleccionado la opción 3.");
+                vertices = 20;
+                crearMatriz2(algoritmo);
+                break;
+            case "4":
+                System.out.println("Ha seleccionado la opción 4.");
+                vertices = 30;
+                crearMatriz2(algoritmo);
+                break;
+            case "5":
+                System.out.println("Ha seleccionado la opción 5.");
+                vertices = 50;
+                crearMatriz2(algoritmo);
+                break;
+            default: 
+                System.out.println("Elección inválida, por favor seleccione una opción válida.");
+                menuTamano(algoritmo);
+                break;
+            }
+        }
+    }
+    
+    public static void crearMatriz1(String algoritmo){
         matrizAdy = new int[vertices][vertices];
         Random random = new Random();
         int cont = 0;
@@ -170,10 +287,24 @@ public class ProyectoAlgoritmos {
                 break;
         }
 
-        llenarGrafo();
+        llenarGrafo(algoritmo);
     }
     
-    public static void llenarGrafo() {
+    public static void crearMatriz2(String algoritmo){
+        matrizAdy = new int[vertices][vertices];
+        Random random = new Random();
+        int cont = 0;
+
+        if (vertices == 5) {
+            matrizAdy = matriz5C;
+        } else {
+            
+        }
+
+        llenarGrafo(algoritmo);
+    }
+    
+    public static void llenarGrafo(String algoritmo) {
         g = new Grafo();
         verticesLocales = new ArrayList<>();
         arcosLocales = new ArrayList<>();
@@ -211,78 +342,19 @@ public class ProyectoAlgoritmos {
         menuAlgoritmo();
     }
     
-    public static void menuTamano(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Seleccione el tamaño del grafo que desea realizar:\n"
-                + "1) 5 vertices\n"
-                + "2) 10 vertices\n"
-                + "3) 20 vertices\n"
-                + "4) 30 vertices\n"
-                + "5) 50 vertices\n");
-        System.out.print("Opción: ");
-        String option = scanner.next();
-        switch(option){
-            case "1":
-                System.out.println("Ha seleccionado la opción 1.");
-                vertices = 5;
-                crearMatriz();
-                break;
-            case "2":
-                System.out.println("Ha seleccionado la opción 2.");
-                vertices = 10;
-                crearMatriz();
-                break;
-            case "3":
-                System.out.println("Ha seleccionado la opción 3.");
-                vertices = 20;
-                crearMatriz();
-                break;
-            case "4":
-                System.out.println("Ha seleccionado la opción 4.");
-                vertices = 30;
-                crearMatriz();
-                break;
-            case "5":
-                System.out.println("Ha seleccionado la opción 5.");
-                vertices = 50;
-                crearMatriz();
-                break;
-            default: 
-                System.out.println("Elección inválida, por favor seleccione una opcción válida.");
-                menuTamano();
-                break;
-        }
-    }
-    
-    public static void menuAlgoritmo(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Algoritmos:\n"
-                + "1) Algoritmo A\n"
-                + "2) Algoritmo B\n"
-                + "3) Algoritmo C\n"
-                + "4) Algoritmo D\n");
-        System.out.print("Opción: ");
-        String option = scanner.next();
-        switch(option){
-            case "1":
-                System.out.println("Ha seleccionado el algorimo A.");
-                algoritmoA();
-                break;
-            case "2":
-                System.out.println("Ha seleccionado el algorimo B.");
-                algoritmoB();
-                break;
-            case "3":
-                System.out.println("Ha seleccionado el algorimo C.");
-                algoritmoC();
-                break;
-            case "4":
-                System.out.println("Ha seleccionado el algorimo D.");
-                break;
-            default: 
-                System.out.println("Elección inválida, por favor seleccione una opcción válida.");
-                menuTamano();
-                break;
+    public static void imprimirGrafo(Grafo u) {
+        if (u != null) {
+            System.out.print("Vertices de U: ");
+            for (int i = 0; i < u.getVertices().size(); i++) {
+                System.out.print(u.getVertices().get(i).getVertice() + ", ");
+            }
+
+            int beneficio = 0;
+            for (int i = 0; i < u.getVertices().size(); i++) {
+                beneficio += u.getVertices().get(i).getBeneficio();
+            }
+            System.out.println("");
+            System.out.println("Beneficio Total: " + beneficio);
         }
     }
     
@@ -298,7 +370,7 @@ public class ProyectoAlgoritmos {
         }
         
         imprimirGrafo(u);
-        menuTamano();
+        menuAlgoritmo();
     }
     
     public static Vertice getMayorBeneficio() {
@@ -337,7 +409,7 @@ public class ProyectoAlgoritmos {
         }
         
         imprimirGrafo(u);
-        menuTamano();
+        menuAlgoritmo();
     }
     
     public static void etapa(Grafo u) {
@@ -447,21 +519,11 @@ public class ProyectoAlgoritmos {
         }
         return mayorV;
     }
- 
-    public static void imprimirGrafo(Grafo u) {
-        if (u != null) {
-            System.out.print("Vertices de U: ");
-            for (int i = 0; i < u.getVertices().size(); i++) {
-                System.out.print(u.getVertices().get(i).getVertice() + ", ");
-            }
-
-            int beneficio = 0;
-            for (int i = 0; i < u.getVertices().size(); i++) {
-                beneficio += u.getVertices().get(i).getBeneficio();
-            }
-            System.out.println("");
-            System.out.println("Beneficio Total: " + beneficio);
-        }
+    
+    // ------------------------* Algoritmo D *------------------------
+    
+    public static void algoritmoD() {
         
     }
+        
 }
