@@ -175,7 +175,7 @@ public class ProyectoAlgoritmos {
         Random random = new Random();
 
         for (int i = 0; i < vertices; i++) {
-            Vertice nuevo = new Vertice(Integer.toString(i), false, random.nextInt(50)+1);
+            Vertice nuevo = new Vertice(Integer.toString(i + 1), false, random.nextInt(50)+1);
             g.addVertice(nuevo);
         }
 
