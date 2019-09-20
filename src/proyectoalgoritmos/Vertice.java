@@ -13,13 +13,13 @@ import java.util.ArrayList;
  */
 public class Vertice {
     private String vertice;
-    private Boolean adyacente;
+    private Boolean used;
     private int beneficio;
     private ArrayList<Arco> arcos;
     
     public Vertice(String vertice, Boolean adyacente, int beneficio) {
         this.vertice = vertice;
-        this.adyacente = adyacente;
+        this.used = adyacente;
         this.beneficio = beneficio;
     }
 
@@ -31,12 +31,12 @@ public class Vertice {
         return vertice;
     }
 
-    public void setAdyacente(Boolean adyacente) {
-        this.adyacente = adyacente;
+    public void setUsed(Boolean used) {
+        this.used = used;
     }
     
-    public Boolean getAdyacente() {
-        return adyacente;
+    public Boolean getUsed() {
+        return used;
     }
 
     public void setBeneficio(int beneficio) {
@@ -56,5 +56,21 @@ public class Vertice {
 
     public ArrayList<Arco> getArcos() {
         return arcos;
+    }
+    
+    public void marcarArcos(){
+        for(int i = 0; i < arcos.size(); i++){
+            arcos.get(i).setUsed(true);
+        }
+    }
+    
+    public int getArcosActivos(){
+        int arcosT = 0;
+        for(Arco arc : arcos){
+            if(!arc.getUsed()){
+                arcosT++;
+            }
+        }
+        return arcosT;
     }
 }
