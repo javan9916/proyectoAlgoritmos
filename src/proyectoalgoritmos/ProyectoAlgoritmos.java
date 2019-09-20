@@ -427,7 +427,6 @@ public class ProyectoAlgoritmos {
                 if(vertices.get(i).getArcosActivos() == 0){
                     g.marcarVertice(vertices.get(i));
                     selected.add(vertices.get(i));
-                    System.out.println("Seleccionado: " + vertices.get(i).getVertice());
                 }
             }
         }

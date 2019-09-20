@@ -31,7 +31,6 @@ public class Grafo {
                 if(!vertices.get(i).getUsed()){
                     vertices.get(i).marcarArcos();
                     vertices.get(i).setUsed(true);
-                    System.out.println("Marcado: " + vertices.get(i).getVertice());
                 }
             }else{
                 ArrayList<Arco> arcos = vertices.get(i).getArcos();
@@ -39,7 +38,6 @@ public class Grafo {
                     if(arcos.get(j).getDestino() == vertice){
                         if(!arcos.get(j).getUsed()){
                             arcos.get(j).setUsed(true);
-                            System.out.println("Marcado arco: " + arcos.get(j).getOrigen().getVertice() + "-" + arcos.get(j).getDestino().getVertice());
                         }
                     }
                 }
