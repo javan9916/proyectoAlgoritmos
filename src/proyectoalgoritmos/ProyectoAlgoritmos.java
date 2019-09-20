@@ -25,11 +25,16 @@ public class ProyectoAlgoritmos {
                                         {0,1,0,0,1},
                                         {0,0,0,1,0}};
     
-    public static int [][] matriz10 = { {0,0,1,0,0,0,0,0,0,0},{0,0,1,0,0,0,0,0,0,0},
-                                        {1,1,0,1,0,1,0,0,0,0},{0,0,1,0,0,0,0,0,0,0},
-                                        {0,0,0,0,0,1,1,1,0,0},{0,0,1,0,1,0,0,0,1,0},
-                                        {0,0,0,0,1,0,0,0,0,0},{0,0,0,0,1,0,0,0,0,0},
-                                        {0,0,0,0,0,1,0,0,0,1},{0,0,0,0,0,0,0,0,1,0}};
+    public static int [][] matriz10 = { {0,0,1,0,0,0,0,0,0,0},
+                                        {0,0,1,0,0,0,0,0,0,0},
+                                        {1,1,0,1,0,1,0,0,0,0},
+                                        {0,0,1,0,0,0,0,0,0,0},
+                                        {0,0,0,0,0,1,1,1,0,0},
+                                        {0,0,1,0,1,0,0,0,1,0},
+                                        {0,0,0,0,1,0,0,0,0,0},
+                                        {0,0,0,0,1,0,0,0,0,0},
+                                        {0,0,0,0,0,1,0,0,0,1},
+                                        {0,0,0,0,0,0,0,0,1,0}};
     
     public static int [][] matriz20 = { {0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                                         {0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -175,7 +180,7 @@ public class ProyectoAlgoritmos {
         Random random = new Random();
 
         for (int i = 0; i < vertices; i++) {
-            Vertice nuevo = new Vertice(Integer.toString(i + 1), false, random.nextInt(50)+1);
+            Vertice nuevo = new Vertice(Integer.toString(i), false, random.nextInt(50)+1);
             g.addVertice(nuevo);
         }
 
@@ -186,9 +191,9 @@ public class ProyectoAlgoritmos {
                     Vertice destino = g.buscarVerticeGrafo(Integer.toString(j));
                     
                     if (origen != null && destino != null)
-                        arcosLocales.add(new Arco(origen, destino, 0, false));
+                        arcosLocales.add(new Arco(origen, destino, false));
                     
-                    origen.addArco(new Arco(origen, destino, 0, false));
+                    origen.addArco(new Arco(origen, destino, false));
                 }
             }
         }
@@ -281,6 +286,8 @@ public class ProyectoAlgoritmos {
         }
     }
     
+    // ------------------------* Algoritmo A *------------------------
+    
     public static void algoritmoA() {
         Grafo u = new Grafo();
         Vertice mayor = getMayorBeneficio();
@@ -290,23 +297,14 @@ public class ProyectoAlgoritmos {
             mayor = getMayorBeneficio();
         }
         
-        System.out.print("Vertices de U: ");
-        for (int i = 0; i < u.getVertices().size(); i++) {
-            System.out.print(u.getVertices().get(i).getVertice() + ", ");
-        }
-        
-        int beneficio = 0;
-        for (int i = 0; i < u.getVertices().size(); i++) {
-            beneficio += u.getVertices().get(i).getBeneficio();
-        }
-        System.out.println("");
-        System.out.println("Beneficio Total: " + beneficio);
+        imprimirGrafo(u);
+        menuTamano();
     }
     
     public static Vertice getMayorBeneficio() {
         ArrayList<Vertice> v = g.getVertices();
         Vertice mayor = new Vertice("", false, 0);
-        
+
         for (int i = 0; i < v.size(); i++) {
             if (!v.get(i).getUsed()) {
                 if (mayor.getBeneficio() < v.get(i).getBeneficio()) {
@@ -316,53 +314,90 @@ public class ProyectoAlgoritmos {
         }
         mayor.setUsed(true);
         if (mayor.getBeneficio() != 0) {
-           marcarAdyacentes(mayor); 
+            marcarAdyacentes(mayor);
         }
-        
+
         return mayor;
     }
-    
-    public static void algoritmoB(){
-        int bMax = 0;
-        Vertice vMax = null;
-        ArrayList<Vertice> verts = g.getVertices();
-        
-        for(int i = 0; i < verts.size(); i++){
-            if(verts.get(i).getBeneficio() >= bMax){
-                bMax = verts.get(i).getBeneficio();
-                vMax = verts.get(i);
-            }
-        }
-        
-        System.out.println("Vertice de mayor beneficio: " + vMax.getVertice() + "\n" 
-                +"Con un beneficio de: " + Integer.toString(vMax.getBeneficio()));
-    }
-    
-    public static void algoritmoBv2(ArrayList<Vertice> seleccion){
-        Vertice menor = getMenorBeneficio();
-    }
-    
-    public static Vertice getMenorBeneficio(){
-        ArrayList<Vertice> vertices = g.getVertices();
-        int menorB = Integer.MAX_VALUE;
-        Vertice menorV = null;
-        for(int i = 0; i < vertices.size(); i++){
-            if(!vertices.get(i).getUsed()){
-                if(vertices.get(i).getBeneficio() < menorB){
-                    menorB = vertices.get(i).getBeneficio();
-                    menorV = vertices.get(i);
-                }
-            }
-        }
-        return menorV;
-    }
-    
+
     public static void marcarAdyacentes(Vertice v) {
         ArrayList<Arco> arcos = v.getArcos();
         for (int i = 0; i < arcos.size(); i++) {
             g.buscarVerticeGrafo(arcos.get(i).getDestino().getVertice()).setUsed(true);
         }
     }
+    
+    // ------------------------* Algoritmo B *------------------------
+    
+    public static void algoritmoB(){
+        Grafo u = new Grafo();
+        
+        while (!g.verificarUsados()) {
+            etapa(u);
+        }
+        
+        imprimirGrafo(u);
+    }
+    
+    public static void etapa(Grafo u) {
+        int[] diferencias = new int[vertices];
+        boolean[] diferencias2 = llenarDiferencias();
+        int peso;
+        int diferencia;
+        
+        for (int i = 0; i < vertices; i++) {
+            if (!g.vertices.get(i).getUsed()) {
+                int beneficio = g.vertices.get(i).getBeneficio();
+                ArrayList<Arco> adyacentes = g.vertices.get(i).getArcos();
+                peso = 0;
+
+                for (int j = 0; j < adyacentes.size(); j++) {
+                    peso += adyacentes.get(j).getDestino().getBeneficio();
+                }
+
+                diferencia = beneficio - peso;
+                diferencias[i] = diferencia;
+            }
+        }
+        
+        int mayor = diferencias[0];
+        int index = 0;
+        for (int i = 0; i < diferencias.length; i++) {
+            if (diferencias2[i]) {
+                mayor = diferencias[i];
+                if (diferencias[i] > mayor) {
+                    index = i;
+                }
+            } 
+        }
+        
+        diferencias2[index] = false;
+        Vertice v = g.buscarVerticeGrafo(Integer.toString(index));
+        v.setUsed(true);
+        marcarAdyacentes(v);
+        ArrayList<Vertice> sueltos = g.buscarVerticesSueltos();
+        
+        u.addVertice(v);
+        if (!sueltos.isEmpty()) {
+            for (int i = 0; i < sueltos.size(); i++) {
+                sueltos.get(i).setUsed(true);
+                diferencias2[Integer.parseInt(sueltos.get(i).getVertice())] = false;
+                u.addVertice(sueltos.get(i));
+            }
+        }
+        
+    }
+    
+    public static boolean[] llenarDiferencias() {
+        boolean[] dif = new boolean[vertices];
+        
+        for (int i = 0; i < dif.length; i++) {
+            dif[i] = true;
+        }
+        return dif;
+    }
+    
+    // ------------------------* Algoritmo C *------------------------
     
     public static void algoritmoC(){
         ArrayList<Vertice> vertices = g.getVertices();
@@ -413,5 +448,21 @@ public class ProyectoAlgoritmos {
         }
         return mayorV;
     }
-    
+ 
+    public static void imprimirGrafo(Grafo u) {
+        if (u != null) {
+            System.out.print("Vertices de U: ");
+            for (int i = 0; i < u.getVertices().size(); i++) {
+                System.out.print(u.getVertices().get(i).getVertice() + ", ");
+            }
+
+            int beneficio = 0;
+            for (int i = 0; i < u.getVertices().size(); i++) {
+                beneficio += u.getVertices().get(i).getBeneficio();
+            }
+            System.out.println("");
+            System.out.println("Beneficio Total: " + beneficio);
+        }
+        
+    }
 }

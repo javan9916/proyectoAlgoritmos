@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Vertice {
     private String vertice;
-    private Boolean used;
+    private boolean used;
     private int beneficio;
     private ArrayList<Arco> arcos;
     

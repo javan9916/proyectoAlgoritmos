@@ -56,5 +56,25 @@ public class Grafo {
         return vertices.get(i);
     }
     
+    public boolean verificarUsados() {
+        for (int i = 0; i < vertices.size(); i++) {
+            if (!vertices.get(i).getUsed()) {
+                return false;
+            }
+        }
+        return true;
+    }
     
+    public ArrayList<Vertice> buscarVerticesSueltos() {
+        ArrayList<Vertice> v = new ArrayList<>();
+        for (int i = 0; i < vertices.size(); i++) {
+            if (!vertices.get(i).getUsed()) {
+                if (vertices.get(i).getArcos().isEmpty()) {
+                    v.add(vertices.get(i));
+                }
+            }
+        }
+        
+        return v;
+    }
 }
