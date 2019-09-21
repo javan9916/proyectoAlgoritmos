@@ -166,8 +166,6 @@ public class ProyectoAlgoritmos {
     }
     
     public static void menuAlgoritmo(){
-        System.out.println("\n"
-                + "");
         Scanner scanner = new Scanner(System.in);
         System.out.println("Algoritmos:\n"
                 + "1) Algoritmo A\n"
@@ -252,25 +250,25 @@ public class ProyectoAlgoritmos {
             case "2":
                 System.out.println("Ha seleccionado 10 vertices.");
                 vertices = 10;
-                arcos = 20;
+                arcos = 30;
                 crearMatriz2(algoritmo);
                 break;
             case "3":
                 System.out.println("Ha seleccionado 20 vertices.");
                 vertices = 20;
-                arcos = 40;
+                arcos = 60;
                 crearMatriz2(algoritmo);
                 break;
             case "4":
                 System.out.println("Ha seleccionado 30 vertices.");
                 vertices = 30;
-                arcos = 60;
+                arcos = 90;
                 crearMatriz2(algoritmo);
                 break;
             case "5":
                 System.out.println("Ha seleccionado 50 vertices.");
                 vertices = 50;
-                arcos = 100;
+                arcos = 150;
                 crearMatriz2(algoritmo);
                 break;
             default: 
@@ -311,8 +309,7 @@ public class ProyectoAlgoritmos {
     
     public static void crearMatriz2(String algoritmo){
         matrizAdy = new int[vertices][vertices];
-        Random random = new Random();
-        int cont = 0;
+        int cont = 00;
 
         if (vertices == 5) {
             matrizAdy = matriz5C;
@@ -335,11 +332,14 @@ public class ProyectoAlgoritmos {
                 }
             }
 
-            while (cont < arcos - 2) {
+            while (cont < arcos) {
                 for (int i = 0; i < vertices; i++) {
                     int limite = 1;
                     if (i <= vertices - 3 && limite <= 2) {
-                        int j = ThreadLocalRandom.current().nextInt(2 + i, vertices - 1);
+                        int j = 19;
+                        if ((2 + i) != (vertices - 1)) {
+                            j = ThreadLocalRandom.current().nextInt(2 + i, vertices - 1);
+                        }
                         if (matrizAdy[i][j] == 0 && i + 2 <= j) {
                             matrizAdy[i][j] = 1;
                             matrizAdy[j][i] = 1;
@@ -350,7 +350,14 @@ public class ProyectoAlgoritmos {
                 }
             }
         }
-
+        
+        for (int i = 0; i < vertices; i++) {
+            for (int j = 0; j < vertices; j++) {
+                System.out.print(matrizAdy[i][j] + ", ");
+            }
+            System.out.println("");
+        }
+        
         llenarGrafo(algoritmo);
     }
     
