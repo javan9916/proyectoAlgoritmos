@@ -316,10 +316,9 @@ public class ProyectoAlgoritmos {
 
         if (vertices == 5) {
             matrizAdy = matriz5C;
-<<<<<<< HEAD
+
         } else if(vertices == 10){
             matrizAdy = matriz10C;
-=======
         } else {
             for (int i = 0; i < vertices; i++) {
                 for (int j = 0; j < vertices; j++) {
@@ -351,7 +350,6 @@ public class ProyectoAlgoritmos {
                     }
                 }
             }
->>>>>>> 4a7017ec4d87f4ae17a80a6774c10f13de883c90
         }
 
         llenarGrafo(algoritmo);
