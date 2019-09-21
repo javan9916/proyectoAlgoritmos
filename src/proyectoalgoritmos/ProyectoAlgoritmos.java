@@ -26,6 +26,17 @@ public class ProyectoAlgoritmos {
                                         {1,1,1,0,1},
                                         {1,1,1,1,0}};
     
+    public static int [][] matriz10C = {{0,0,1,0,0,1,1,0,0,0},
+                                        {0,0,1,0,0,0,0,0,0,0},
+                                        {1,1,0,1,0,1,0,0,0,0},
+                                        {0,0,1,0,0,0,1,0,1,0},
+                                        {0,0,0,0,0,1,1,1,0,1},
+                                        {1,0,1,0,1,0,0,0,1,0},
+                                        {1,0,0,1,1,0,0,0,0,0},
+                                        {0,0,0,0,1,0,0,0,1,0},
+                                        {0,0,0,1,0,1,0,1,0,1},
+                                        {0,0,0,0,1,0,0,0,1,0}};
+    
     public static int [][] matriz5 =   {{0,1,0,0,0},
                                         {1,0,1,1,0},
                                         {0,1,0,0,0},
@@ -200,27 +211,27 @@ public class ProyectoAlgoritmos {
         if (!algoritmo.equals("d")) {
            switch(option){
             case "1":
-                System.out.println("Ha seleccionado la opción 1.");
+                System.out.println("Ha seleccionado 5 vertices.");
                 vertices = 5;
                 crearMatriz1(algoritmo);
                 break;
             case "2":
-                System.out.println("Ha seleccionado la opción 2.");
+                System.out.println("Ha seleccionado 10 vertices.");
                 vertices = 10;
                 crearMatriz1(algoritmo);
                 break;
             case "3":
-                System.out.println("Ha seleccionado la opción 3.");
+                System.out.println("Ha seleccionado 20 vertices.");
                 vertices = 20;
                 crearMatriz1(algoritmo);
                 break;
             case "4":
-                System.out.println("Ha seleccionado la opción 4.");
+                System.out.println("Ha seleccionado 30 vertices.");
                 vertices = 30;
                 crearMatriz1(algoritmo);
                 break;
             case "5":
-                System.out.println("Ha seleccionado la opción 5.");
+                System.out.println("Ha seleccionado 50 vertices.");
                 vertices = 50;
                 crearMatriz1(algoritmo);
                 break;
@@ -232,27 +243,27 @@ public class ProyectoAlgoritmos {
         } else {
             switch(option){
             case "1":
-                System.out.println("Ha seleccionado la opción 1.");
+                System.out.println("Ha seleccionado 5 vertices.");
                 vertices = 5;
                 crearMatriz2(algoritmo);
                 break;
             case "2":
-                System.out.println("Ha seleccionado la opción 2.");
+                System.out.println("Ha seleccionado 10 vertices.");
                 vertices = 10;
                 crearMatriz2(algoritmo);
                 break;
             case "3":
-                System.out.println("Ha seleccionado la opción 3.");
+                System.out.println("Ha seleccionado 20 vertices.");
                 vertices = 20;
                 crearMatriz2(algoritmo);
                 break;
             case "4":
-                System.out.println("Ha seleccionado la opción 4.");
+                System.out.println("Ha seleccionado 30 vertices.");
                 vertices = 30;
                 crearMatriz2(algoritmo);
                 break;
             case "5":
-                System.out.println("Ha seleccionado la opción 5.");
+                System.out.println("Ha seleccionado 50 vertices.");
                 vertices = 50;
                 crearMatriz2(algoritmo);
                 break;
@@ -299,8 +310,8 @@ public class ProyectoAlgoritmos {
 
         if (vertices == 5) {
             matrizAdy = matriz5C;
-        } else {
-            
+        } else if(vertices == 10){
+            matrizAdy = matriz10C;
         }
 
         llenarGrafo(algoritmo);
@@ -544,7 +555,7 @@ public class ProyectoAlgoritmos {
     public static void algoritmoD() {
         ArrayList<Vertice> used = new ArrayList();
         ArrayList<Vertice> vertices = g.getVertices();
-        Vertice next = getMayorBeneficioBack(vertices, used);
+        Vertice next = vertices.get(0);
         ArrayList<Vertice> solucion = new ArrayList();
         ArrayList<Vertice> combinacion = new ArrayList();
         
@@ -560,32 +571,24 @@ public class ProyectoAlgoritmos {
         menuAlgoritmo();
     }
     
-    public static ArrayList<Vertice> backtracking(ArrayList<Vertice> used, ArrayList<Vertice> vertices, Vertice vertice, int max, ArrayList<Vertice> solucion, ArrayList<Vertice> combinacion){
-        System.out.println("Combinacion: ");
-        for(Vertice vert : combinacion){
-            System.out.print(vert.getVertice());
-        }
-        System.out.println("");
-        
+    public static ArrayList<Vertice> backtracking(ArrayList<Vertice> usados, ArrayList<Vertice> opciones, Vertice vertice, int max, ArrayList<Vertice> solucion, ArrayList<Vertice> combinacion){
         if(vertice == null){
             return solucion;
         }
         
-        used.add(vertice);
-        vertices.remove(vertice);
-        vertices = marcarAdyacentesBackV(vertices, vertice);
-        used = marcarAdyacentesBackU(used, vertice);
+        usados.add(vertice);
+        opciones.remove(vertice);
+        opciones = marcarAdyacentesBackV(opciones, vertice);
+        usados = marcarAdyacentesBackU(usados, vertice);
+        
+        Vertice next = getMayorBeneficioBack(opciones, usados);
         
         combinacion.add(vertice);
         if(sumarpesovertices(combinacion) > max){
             solucion = combinacion;
             max = sumarpesovertices(combinacion);
-            Vertice next = getMayorBeneficioBack(vertices, used);
-            return backtracking(used, vertices, next, max, solucion, combinacion);
-        }else{
-            Vertice next = getMayorBeneficioBack(vertices, used);
-            return backtracking(used, vertices, next, max, solucion, combinacion);
         }
+        return backtracking(usados, opciones, next, max, solucion, combinacion);
     }
     
     public static int sumarpesovertices(ArrayList<Vertice> vertices){
