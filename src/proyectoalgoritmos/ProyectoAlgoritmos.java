@@ -316,7 +316,6 @@ public class ProyectoAlgoritmos {
 
         if (vertices == 5) {
             matrizAdy = matriz5C;
-
         } else if(vertices == 10){
             matrizAdy = matriz10C;
         } else {
