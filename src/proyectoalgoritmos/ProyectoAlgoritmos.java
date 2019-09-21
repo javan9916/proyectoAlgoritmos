@@ -7,6 +7,7 @@ package proyectoalgoritmos;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
@@ -18,6 +19,7 @@ public class ProyectoAlgoritmos {
     public static ArrayList<Vertice> verticesLocales;
     public static ArrayList<Arco> arcosLocales;
     public static int vertices;
+    public static int arcos;
     public static int [][] matrizAdy;
     
     public static int [][] matriz5C = { {0,1,1,1,1},
@@ -237,21 +239,25 @@ public class ProyectoAlgoritmos {
             case "2":
                 System.out.println("Ha seleccionado la opción 2.");
                 vertices = 10;
+                arcos = 20;
                 crearMatriz2(algoritmo);
                 break;
             case "3":
                 System.out.println("Ha seleccionado la opción 3.");
                 vertices = 20;
+                arcos = 40;
                 crearMatriz2(algoritmo);
                 break;
             case "4":
                 System.out.println("Ha seleccionado la opción 4.");
                 vertices = 30;
+                arcos = 60;
                 crearMatriz2(algoritmo);
                 break;
             case "5":
                 System.out.println("Ha seleccionado la opción 5.");
                 vertices = 50;
+                arcos = 100;
                 crearMatriz2(algoritmo);
                 break;
             default: 
@@ -298,7 +304,36 @@ public class ProyectoAlgoritmos {
         if (vertices == 5) {
             matrizAdy = matriz5C;
         } else {
-            
+            for (int i = 0; i < vertices; i++) {
+                for (int j = 0; j < vertices; j++) {
+                    if (i < j && (i + 1) == j) {
+                        matrizAdy[i][j] = 1;
+                        matrizAdy[j][i] = 1;
+                        cont++;
+                        if (i == 0 || i == (vertices / 2) - 2 || i == (vertices / 2) + 2) {
+                            matrizAdy[i][vertices - 1] = 1;
+                            matrizAdy[j][vertices - 1] = 1;
+                            cont++;
+                        }
+                    }
+
+                }
+            }
+
+            while (cont < arcos - 2) {
+                for (int i = 0; i < vertices; i++) {
+                    int limite = 1;
+                    if (i <= vertices - 3 && limite <= 2) {
+                        int j = ThreadLocalRandom.current().nextInt(2 + i, vertices - 1);
+                        if (matrizAdy[i][j] == 0 && i + 2 <= j) {
+                            matrizAdy[i][j] = 1;
+                            matrizAdy[j][i] = 1;
+                            limite++;
+                            cont++;
+                        }
+                    }
+                }
+            }
         }
 
         llenarGrafo(algoritmo);
