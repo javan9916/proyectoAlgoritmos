@@ -604,12 +604,14 @@ public class ProyectoAlgoritmos {
     // ------------------------* Algoritmo D *------------------------
     
     public static void algoritmoD() {
-        ArrayList<Vertice> used = new ArrayList();
+        ArrayList<Vertice> resultado = new ArrayList<>();
         ArrayList<Vertice> verticesG = g.getVertices();
-        ArrayList<Vertice> solucion = new ArrayList();
-        ArrayList<Vertice> combinacion = new ArrayList();
-        
-        ArrayList<Vertice> resultado = backtracking(used, verticesG, verticesG.get(0), 0, solucion, combinacion);
+        for(int i = 0; i < vertices; i++){
+            ArrayList<Vertice> used = new ArrayList<>();
+            ArrayList<Vertice> combinacion = new ArrayList<>();
+            int max = sumarpesovertices(resultado);
+            resultado = backtracking(used, verticesG, verticesG.get(i), max, resultado, combinacion);
+        }
         
         System.out.println("Los vertices seleccionados  para el algoritmo son: ");
         int i = 0;
@@ -627,14 +629,9 @@ public class ProyectoAlgoritmos {
         if(vertice == null){
             return solucion;
         }
-        usados = marcarAdyacentesBackU(usados, vertice);
+        usados = marcarAdyacentesBack(usados, vertice);
         usados.add(vertice);
-<<<<<<< HEAD
-=======
         
-        Vertice next = getMayorBeneficioBack(opciones, usados);
-        
->>>>>>> a0a67eca1b3ff493db9cc4c7dab683b061ab2f29
         combinacion.add(vertice);
         if(sumarpesovertices(combinacion) > max){
             solucion = combinacion;
@@ -669,7 +666,7 @@ public class ProyectoAlgoritmos {
         return maxV;
     }
     
-    public static ArrayList<Vertice> marcarAdyacentesBackU(ArrayList<Vertice> used, Vertice vertice){
+    public static ArrayList<Vertice> marcarAdyacentesBack(ArrayList<Vertice> used, Vertice vertice){
         ArrayList<Arco> arcos = vertice.getArcos();
         
         for(int i = 0; i < arcos.size(); i++){
@@ -681,16 +678,11 @@ public class ProyectoAlgoritmos {
         
         return used;
     }
-<<<<<<< HEAD
     
     public static void imprimircomb(ArrayList<Vertice> verts){
-        System.out.println("Combinacion: ");
         for(Vertice vert : verts){
             System.out.print(vert.getVertice() + ", ");
         }
         System.out.println("");
     }   
-=======
-        
->>>>>>> a0a67eca1b3ff493db9cc4c7dab683b061ab2f29
 }
