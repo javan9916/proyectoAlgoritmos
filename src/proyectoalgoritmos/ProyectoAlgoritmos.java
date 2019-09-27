@@ -364,13 +364,6 @@ public class ProyectoAlgoritmos {
             }
         }
         
-        for (int i = 0; i < vertices; i++) {
-            for (int j = 0; j < vertices; j++) {
-                System.out.print(matrizAdy[i][j] + ", ");
-            }
-            System.out.println("");
-        }
-        
         llenarGrafo(algoritmo);
     }
     
@@ -633,11 +626,8 @@ public class ProyectoAlgoritmos {
         if(vertice == null){
             return solucion;
         }
-        
-        usados.add(vertice);
-        opciones.remove(vertice);
-        opciones = marcarAdyacentesBackV(opciones, vertice);
         usados = marcarAdyacentesBackU(usados, vertice);
+        usados.add(vertice);
         
         Vertice next = getMayorBeneficioBack(opciones, usados);
         
@@ -685,19 +675,6 @@ public class ProyectoAlgoritmos {
         }
         
         return used;
-    }
-    
-    public static ArrayList<Vertice> marcarAdyacentesBackV(ArrayList<Vertice> vertices, Vertice vertice){
-        ArrayList<Arco> arcos = vertice.getArcos();
-        
-        for(int i = 0; i < arcos.size(); i++){
-            Vertice objetivo = arcos.get(i).getDestino();
-            if(vertices.contains(objetivo)){
-                vertices.remove(objetivo);
-            }
-        }
-        
-        return vertices;
     }
         
 }
