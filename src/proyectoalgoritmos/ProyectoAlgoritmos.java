@@ -449,6 +449,9 @@ public class ProyectoAlgoritmos {
             mayor = getMayorBeneficio();                aA++;lA++;
         }                                               cA++;
         
+        System.out.println("Asignaciones: " + aA);
+        System.out.println("Comparaciones: " + cA);
+        
         imprimirGrafo(u);                               lA++;
         menuAlgoritmo();                                lA++;
     }
@@ -487,6 +490,9 @@ public class ProyectoAlgoritmos {
         while (!g.verificarUsados()) {                  cB++;lB++;
             etapa(u);                                   lB++;
         }                                               cB++;
+        
+        System.out.println("Asignaciones: " + aB);
+        System.out.println("Comparaciones: " + cB);
         
         imprimirGrafo(u);                               lB++;
         menuAlgoritmo();                                lB++;
@@ -571,6 +577,9 @@ public class ProyectoAlgoritmos {
             benetotal += selected.get(i).getBeneficio();    aC++;lC++;
         }                                               cC++;
         System.out.println("El beneficio total de esta seleccion es: " + benetotal); lC++;
+        
+        System.out.println("Asignaciones: " + aC);
+        System.out.println("Comparaciones: " + cC);
     }
     
     public static void addSelected(ArrayList<Vertice> selected){
