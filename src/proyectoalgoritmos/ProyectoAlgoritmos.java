@@ -15,6 +15,19 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class ProyectoAlgoritmos {
     
+    public static int aA;
+    public static int aB;
+    public static int aC;
+    public static int aD;
+    public static int cA;
+    public static int cB;
+    public static int cC;
+    public static int cD;
+    public static int lA;
+    public static int lB;
+    public static int lC;
+    public static int lD;
+    
     public static Grafo g;
     public static ArrayList<Vertice> verticesLocales;
     public static ArrayList<Arco> arcosLocales;
@@ -351,13 +364,6 @@ public class ProyectoAlgoritmos {
             }
         }
         
-        for (int i = 0; i < vertices; i++) {
-            for (int j = 0; j < vertices; j++) {
-                System.out.print(matrizAdy[i][j] + ", ");
-            }
-            System.out.println("");
-        }
-        
         llenarGrafo(algoritmo);
     }
     
@@ -435,162 +441,163 @@ public class ProyectoAlgoritmos {
     // ------------------------* Algoritmo A *------------------------
     
     public static void algoritmoA() {
-        Grafo u = new Grafo();
-        Vertice mayor = getMayorBeneficio();
+        Grafo u = new Grafo();                          aA++;lA++;
+        Vertice mayor = getMayorBeneficio();            aA++;lA++;
         
-        while (mayor.getBeneficio() != 0) {
-            u.addVertice(mayor);
-            mayor = getMayorBeneficio();
-        }
+        while (mayor.getBeneficio() != 0) {             cA++;lA++;
+            u.addVertice(mayor);                        aA++;cA++;lA++;
+            mayor = getMayorBeneficio();                aA++;lA++;
+        }                                               cA++;
         
-        imprimirGrafo(u);
-        menuAlgoritmo();
+        imprimirGrafo(u);                               lA++;
+        menuAlgoritmo();                                lA++;
     }
     
     public static Vertice getMayorBeneficio() {
-        ArrayList<Vertice> v = g.getVertices();
-        Vertice mayor = new Vertice("", false, 0);
-
-        for (int i = 0; i < v.size(); i++) {
-            if (!v.get(i).getUsed()) {
-                if (mayor.getBeneficio() < v.get(i).getBeneficio()) {
-                    mayor = v.get(i);
+        ArrayList<Vertice> v = g.getVertices();         aA++;lA++;
+        Vertice mayor = new Vertice("", false, 0);      aA+=2;lA++;
+                
+        for (int i = 0; i < v.size(); i++) {            aA++;cA+=2;lA++;
+            if (!v.get(i).getUsed()) {                  cA++;lA++;
+                if (mayor.getBeneficio() < v.get(i).getBeneficio()) {   lA++;
+                    mayor = v.get(i);                   aA++;lA++;
                 }
             }
-        }
-        mayor.setUsed(true);
-        if (mayor.getBeneficio() != 0) {
-            marcarAdyacentes(mayor);
+        }                                               cA++;
+        mayor.setUsed(true);                            aA++;cA++;lA++;
+        if (mayor.getBeneficio() != 0) {                lA++;
+            marcarAdyacentes(mayor);                    lA++;
         }
 
         return mayor;
     }
 
     public static void marcarAdyacentes(Vertice v) {
-        ArrayList<Arco> arcos = v.getArcos();
-        for (int i = 0; i < arcos.size(); i++) {
-            g.buscarVerticeGrafo(arcos.get(i).getDestino().getVertice()).setUsed(true);
-        }
+        ArrayList<Arco> arcos = v.getArcos();           aA+=2;lA++;
+        for (int i = 0; i < arcos.size(); i++) {        aA+=2;cA++;lA++;
+            g.buscarVerticeGrafo(arcos.get(i).getDestino().getVertice()).setUsed(true);lA++;
+        }                                               cA++;
     }
     
     // ------------------------* Algoritmo B *------------------------
     
     public static void algoritmoB(){
-        Grafo u = new Grafo();
+        Grafo u = new Grafo();                          aB++;lB++;
         
-        while (!g.verificarUsados()) {
-            etapa(u);
-        }
+        while (!g.verificarUsados()) {                  cB++;lB++;
+            etapa(u);                                   lB++;
+        }                                               cB++;
         
-        imprimirGrafo(u);
-        menuAlgoritmo();
+        imprimirGrafo(u);                               lB++;
+        menuAlgoritmo();                                lB++;
     }
     
     public static void etapa(Grafo u) {
-        int[] diferencias = new int[vertices];
-        int peso;
-        int diferencia;
-        int beneficio;
+        int[] diferencias = new int[vertices];          aB++;lB++;
+        int peso;                                       lB++;
+        int diferencia;                                 lB++;
+        int beneficio;                                  aB++;lB++;
         
-        for (int i = 0; i < vertices; i++) {
-            if (!g.vertices.get(i).getUsed()) {
-                beneficio = g.vertices.get(i).getBeneficio();
-                ArrayList<Arco> adyacentes = g.vertices.get(i).getArcos();
-                peso = 0;
+        for (int i = 0; i < vertices; i++) {            aB++;cB+=2;lB++;
+            if (!g.vertices.get(i).getUsed()) {         lB++;
+                beneficio = g.vertices.get(i).getBeneficio();                   lB++;
+                ArrayList<Arco> adyacentes = g.vertices.get(i).getArcos();      lB++;
+                peso = 0;                               aB+=4;                  lB++;
 
-                for (int j = 0; j < adyacentes.size(); j++) {
-                    if (!adyacentes.get(j).getDestino().getUsed()) {
-                        peso += adyacentes.get(j).getDestino().getBeneficio();
+                for (int j = 0; j < adyacentes.size(); j++) {                   aB++;cB+=2;lB++;
+                    if (!adyacentes.get(j).getDestino().getUsed()) {            lB++;
+                        peso += adyacentes.get(j).getDestino().getBeneficio();  aB++;lB++;
                     }
-                }
-
-                diferencia = beneficio - peso;
-                diferencias[i] = diferencia;
+                }                                                               cB++;
+                
+                diferencia = beneficio - peso;          lB++;                       
+                diferencias[i] = diferencia;            aB+=2;lB++;
             }
-        }
+        }                                               cB++;
         
-        int mayor = diferencias[obtenerPrimerMayor()];
-        int index = 0;
-        for (int i = 0; i < vertices; i++) {
-            if (!g.buscarVerticeGrafo(Integer.toString(i)).getUsed()) {
-                if (diferencias[i] > mayor) {
-                    mayor = diferencias[i];
-                    index = i;
+        int mayor = diferencias[obtenerPrimerMayor()];  aB++;lB++;
+        int index = 0;                                  aB+=2;lB++;
+        for (int i = 0; i < vertices; i++) {            aB++;cB+=2;lB++;
+            if (!g.buscarVerticeGrafo(Integer.toString(i)).getUsed()) {     cB++;lB++;
+                if (diferencias[i] > mayor) {           lB++;
+                    mayor = diferencias[i];             aB++;lB++;
+                    index = i;                          aB++;lB++;
                 }
             } 
-        }
+        }                                               cB++;
         
-        Vertice v = g.buscarVerticeGrafo(Integer.toString(index));
-        v.setUsed(true);
-        marcarAdyacentes(v);
-        ArrayList<Vertice> sueltos = g.buscarVerticesSueltos();
+        Vertice v = g.buscarVerticeGrafo(Integer.toString(index));          aB++;lB++;
+        v.setUsed(true);                                aB++;lB++;
+        marcarAdyacentes(v);                            lB++;//CAMBIAR EN LAS PRUEBAS DE B
+        ArrayList<Vertice> sueltos = g.buscarVerticesSueltos();             aB++;lB++;
         
-        u.addVertice(v);
-        if (!sueltos.isEmpty()) {
-            for (int i = 0; i < sueltos.size(); i++) {
-                sueltos.get(i).setUsed(true);
-                u.addVertice(sueltos.get(i));
-            }
+        u.addVertice(v);                                aB++;cB+=2;lB++;                                  
+        if (!sueltos.isEmpty()) {                       aB++;lB++;
+            for (int i = 0; i < sueltos.size(); i++) {  aB++;cB++;lB++;
+                sueltos.get(i).setUsed(true);           aB++;lB++;
+                u.addVertice(sueltos.get(i));           aB++;cB++;lB++;
+            }                                           cB++;
         }
     }
     
-    public static int obtenerPrimerMayor() {
-        for (int i = 0; i < g.vertices.size(); i++) {
-            if (!g.vertices.get(i).getUsed()) {
-                return i;
+    public static int obtenerPrimerMayor() {            aB++;lB++;
+        for (int i = 0; i < g.vertices.size(); i++) {   aB++;cB+=2;lB++;
+            if (!g.vertices.get(i).getUsed()) {         lB++;
+                                                        lB++;
+                return i;                               
             }
-        }
+        }                                               cB++;lB++;
         return 0;
     }
     
     // ------------------------* Algoritmo C *------------------------
     
     public static void algoritmoC(){
-        ArrayList<Vertice> vertices = g.getVertices();
-        ArrayList<Vertice> selected = new ArrayList();
+        ArrayList<Vertice> vertices = g.getVertices();  aC++;lC++;
+        ArrayList<Vertice> selected = new ArrayList();  aC++;lC++;
         
-        Vertice mayor = getMayorAbyacentes();
-        while(mayor != null){
-            System.out.println(mayor.getVertice());
-            g.marcarVertice(mayor);
-            addSelected(selected);
-            mayor = getMayorAbyacentes();
-        }
+        Vertice mayor = getMayorAbyacentes();           aC++;lC++;
+        while(mayor != null){                           cC++;lC++;
+            System.out.println(mayor.getVertice());     lC++;
+            g.marcarVertice(mayor);                     lC++;
+            addSelected(selected);                      lC++;
+            mayor = getMayorAbyacentes();               aC++;lC++;
+        }                                               cC++;
         
-        System.out.println("Los locales con mayor numero de ubicaciones son:");
-        int benetotal = 0;
-        for(int i = 0; i < selected.size(); i++){
-            System.out.print(selected.get(i).getVertice() + ", ");
-            benetotal += selected.get(i).getBeneficio();
-        }
-        System.out.println("El beneficio total de esta seleccion es: " + benetotal);
+        System.out.println("Los locales con mayor numero de ubicaciones son:"); lC++;
+        int benetotal = 0;                              cC++;aC++;lC++;
+        for(int i = 0; i < selected.size(); i++){       aC++;cC++;lC++;
+            System.out.print(selected.get(i).getVertice() + ", ");lC++;
+            benetotal += selected.get(i).getBeneficio();    aC++;lC++;
+        }                                               cC++;
+        System.out.println("El beneficio total de esta seleccion es: " + benetotal); lC++;
     }
     
     public static void addSelected(ArrayList<Vertice> selected){
-        ArrayList<Vertice> vertices = g.getVertices();
-        for(int i = 0; i < vertices.size(); i++){
-            if(!vertices.get(i).getUsed()){
-                if(vertices.get(i).getArcosActivos() == 0){
-                    g.marcarVertice(vertices.get(i));
-                    selected.add(vertices.get(i));
+        ArrayList<Vertice> vertices = g.getVertices();  aC+=2;lC++;
+        for(int i = 0; i < vertices.size(); i++){       aC++;cC+=2;lC++;
+            if(!vertices.get(i).getUsed()){             cC++;lC++;
+                if(vertices.get(i).getArcosActivos() == 0){ lC++;
+                    g.marcarVertice(vertices.get(i));   lC++;
+                    selected.add(vertices.get(i));      aC++;lC++;
                 }
             }
-        }
+        }                                               cC++;
     }
     
     public static Vertice getMayorAbyacentes(){
-        ArrayList<Vertice> vertices = g.getVertices();
-        int mayorA = 0;
-        Vertice mayorV = null;
-        for(int i = 0; i < vertices.size(); i++){
-            if(!vertices.get(i).getUsed()){
-                int totales = vertices.get(i).getArcosActivos();
-                if(totales > mayorA){
-                    mayorA = totales;
-                    mayorV = vertices.get(i);
+        ArrayList<Vertice> vertices = g.getVertices();  aC++;lC++;
+        int mayorA = 0;                                 aC++;lC++; 
+        Vertice mayorV = null;                          aC+=2;lC++;
+        for(int i = 0; i < vertices.size(); i++){       aC++;cC+=2;lC++;
+            if(!vertices.get(i).getUsed()){             lC++;
+                int totales = vertices.get(i).getArcosActivos();    aC++;cC++;lC++;
+                if(totales > mayorA){                   lC++;
+                    mayorA = totales;                   aC++;lC++;
+                    mayorV = vertices.get(i);           aC++;lC++;
                 }
             }    
-        }
+        }                                               cC++;lC++;
         return mayorV;
     }
     
@@ -622,6 +629,12 @@ public class ProyectoAlgoritmos {
         }
         usados = marcarAdyacentesBackU(usados, vertice);
         usados.add(vertice);
+<<<<<<< HEAD
+=======
+        
+        Vertice next = getMayorBeneficioBack(opciones, usados);
+        
+>>>>>>> a0a67eca1b3ff493db9cc4c7dab683b061ab2f29
         combinacion.add(vertice);
         if(sumarpesovertices(combinacion) > max){
             solucion = combinacion;
@@ -668,6 +681,7 @@ public class ProyectoAlgoritmos {
         
         return used;
     }
+<<<<<<< HEAD
     
     public static void imprimircomb(ArrayList<Vertice> verts){
         System.out.println("Combinacion: ");
@@ -676,4 +690,7 @@ public class ProyectoAlgoritmos {
         }
         System.out.println("");
     }   
+=======
+        
+>>>>>>> a0a67eca1b3ff493db9cc4c7dab683b061ab2f29
 }
