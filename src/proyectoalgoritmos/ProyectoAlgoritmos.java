@@ -598,16 +598,17 @@ public class ProyectoAlgoritmos {
     
     public static void algoritmoD() {
         ArrayList<Vertice> used = new ArrayList();
-        ArrayList<Vertice> vertices = g.getVertices();
-        Vertice next = vertices.get(0);
+        ArrayList<Vertice> verticesG = g.getVertices();
         ArrayList<Vertice> solucion = new ArrayList();
         ArrayList<Vertice> combinacion = new ArrayList();
         
-        ArrayList<Vertice> resultado = backtracking(used, vertices, next, 0, solucion, combinacion);
+        ArrayList<Vertice> resultado = backtracking(used, verticesG, verticesG.get(0), 0, solucion, combinacion);
         
         System.out.println("Los vertices seleccionados  para el algoritmo son: ");
-        for(int i = 0; i < resultado.size(); i++){
+        int i = 0;
+        while(i < resultado.size()){
             System.out.print(resultado.get(i).getVertice()+ ", ");
+            i++;
         }
         System.out.println("");
         System.out.println("Peso total del grafo: " + sumarpesovertices(resultado));
@@ -615,23 +616,18 @@ public class ProyectoAlgoritmos {
         menuAlgoritmo();
     }
     
-    public static ArrayList<Vertice> backtracking(ArrayList<Vertice> usados, ArrayList<Vertice> opciones, Vertice vertice, int max, ArrayList<Vertice> solucion, ArrayList<Vertice> combinacion){
+    public static ArrayList backtracking(ArrayList<Vertice> usados, ArrayList<Vertice> opciones, Vertice vertice, int max, ArrayList<Vertice> solucion, ArrayList<Vertice> combinacion){
         if(vertice == null){
             return solucion;
         }
-        
-        usados.add(vertice);
-        opciones.remove(vertice);
-        opciones = marcarAdyacentesBackV(opciones, vertice);
         usados = marcarAdyacentesBackU(usados, vertice);
-        
-        Vertice next = getMayorBeneficioBack(opciones, usados);
-        
+        usados.add(vertice);
         combinacion.add(vertice);
         if(sumarpesovertices(combinacion) > max){
             solucion = combinacion;
             max = sumarpesovertices(combinacion);
         }
+        Vertice next = getMayorBeneficioBack(opciones, usados);
         return backtracking(usados, opciones, next, max, solucion, combinacion);
     }
     
@@ -673,17 +669,11 @@ public class ProyectoAlgoritmos {
         return used;
     }
     
-    public static ArrayList<Vertice> marcarAdyacentesBackV(ArrayList<Vertice> vertices, Vertice vertice){
-        ArrayList<Arco> arcos = vertice.getArcos();
-        
-        for(int i = 0; i < arcos.size(); i++){
-            Vertice objetivo = arcos.get(i).getDestino();
-            if(vertices.contains(objetivo)){
-                vertices.remove(objetivo);
-            }
+    public static void imprimircomb(ArrayList<Vertice> verts){
+        System.out.println("Combinacion: ");
+        for(Vertice vert : verts){
+            System.out.print(vert.getVertice() + ", ");
         }
-        
-        return vertices;
-    }
-        
+        System.out.println("");
+    }   
 }
