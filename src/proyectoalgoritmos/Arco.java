@@ -9,6 +9,13 @@ package proyectoalgoritmos;
  *
  * @author Javier
  */
+
+/*
+    clase que representa la conexion entre dos vertices
+
+    Creador y fecha: 10/09/19
+    Ultima modificacion: 10/09/19
+*/
 public class Arco {
 
     private Vertice origen;

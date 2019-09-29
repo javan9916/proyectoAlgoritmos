@@ -11,6 +11,13 @@ import java.util.ArrayList;
  *
  * @author Javier
  */
+
+/*
+    Clase que representa los vertices del grafo, cada una almacena sus respectivos arcos
+
+    Creador y fecha: Javier 10/09/19
+    Ultima modificacion: 15/09/19
+*/
 public class Vertice {
     private String vertice;
     private boolean used;
@@ -58,11 +65,19 @@ public class Vertice {
         return arcos;
     }
     
+    /*
+        marca los arcos de este vertice
+    */
+    
     public void marcarArcos(){
         for(int i = 0; i < arcos.size(); i++){
             arcos.get(i).setUsed(true);
         }
     }
+    
+    /*
+        determina el numero de arcos no marcados que posee el vertice
+    */
     
     public int getArcosActivos(){
         int arcosT = 0;

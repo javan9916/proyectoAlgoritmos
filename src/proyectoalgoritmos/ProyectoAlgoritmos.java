@@ -577,7 +577,10 @@ public class ProyectoAlgoritmos {
     
     // ------------------------* Algoritmo B *------------------------
     
+    /*Algoritmo que llama de forma iterativa al metodo etapa es quien determina cada paso de la solucion a este algoritmo
     
+    Creador y fecha: Javier 15/09/19
+    Ultima modificacion 16/09/19*/
     
     public static void algoritmoB(){
         long start = System.currentTimeMillis();
@@ -597,6 +600,13 @@ public class ProyectoAlgoritmos {
         imprimirGrafo(u);                               lB++;
         menuAlgoritmo();                                lB++;
     }
+    
+    /*Algoritmo que mide la diferencia del beneficio de cada vertice con la de sus adyacentes, determina el vertice con la mayor diferencia,
+    lo añade a la solucion, marca a el y sus adyacentes y busca aquellos vertices que no poseen adyacentes sin marcar y los añade a
+    la solucion tambien
+    
+    Creador y fecha: Javier 15/09/19
+    Ultima modificacion 16/09/19*/
     
     public static void etapa(Grafo u) {
         int[] diferencias = new int[vertices];          aB++;lB++;
@@ -646,6 +656,11 @@ public class ProyectoAlgoritmos {
         }
     }
     
+    /*algoritmo que busca el primer vertice del vertice que no este marcado
+    
+    Creador y fecha: Javier 15/08/19
+    Ultima modificacion: 16/09/19*/
+    
     public static int obtenerPrimerMayor() {            aB++;lB++;
         for (int i = 0; i < g.vertices.size(); i++) {   aB++;cB+=2;lB++;
             if (!g.vertices.get(i).getUsed()) {         lB++;
@@ -657,6 +672,11 @@ public class ProyectoAlgoritmos {
     }
     
     // ------------------------* Algoritmo C *------------------------
+    
+    /*algoritmo C que llama de forma iterativa al algoritmo que se encarga de deterinar la solucion
+    
+    Creador y fecha: Carlos 14/09/19
+    Ultima modificacion: 15/09/19*/
     
     public static void algoritmoC(){
         long start = System.currentTimeMillis();
@@ -687,6 +707,11 @@ public class ProyectoAlgoritmos {
         System.out.println("Líneas: " + lC);        lC=0;
     }
     
+    /*metodo que añade a la solucion los vertices que no posean adyacentes no marcados
+    
+    Creador y fecha: Carlos 14/09/19
+    Ultima modificacion: */
+    
     public static void addSelected(ArrayList<Vertice> selected){
         ArrayList<Vertice> vertices = g.getVertices();  aC+=2;lC++;
         for(int i = 0; i < vertices.size(); i++){       aC++;cC+=2;lC++;
@@ -698,6 +723,11 @@ public class ProyectoAlgoritmos {
             }
         }                                               cC++;
     }
+    
+    /*metodo que busca dentro de los vertices no marcados el que posea el mayor numero de adyacentes
+    
+    Creador y fecha: Carlos 14/09/19
+    Ultima modificacion: 15/09/19*/
     
     public static Vertice getMayorAbyacentes(){
         ArrayList<Vertice> vertices = g.getVertices();  aC++;lC++;
@@ -716,6 +746,13 @@ public class ProyectoAlgoritmos {
     }
     
     // ------------------------* Algoritmo D *------------------------
+    
+    /*Metodo que corresponde al algoritmo D, llama al metodo de backtracking de forma iterativa con cada uno de los vertices del grafo
+    como vertice inicial, en caso de poder encontrar una solucion mejor a la de una iteracion anterior, o sea, prueba todas las posible 
+    combinaciones
+    
+    Creador y fecha: Carlos 15/09/19
+    Ultima modificacion 27/09/19*/
     
     public static void algoritmoD() {
         long start = System.currentTimeMillis();
@@ -748,6 +785,13 @@ public class ProyectoAlgoritmos {
         
     }
     
+    /*metodo que va creando combinaciones de vertices no adyacentes segun el vertice dentro de opciones y fuera de usados con el mayor beneficio,
+    compara el peso total de la combinacion actual con el de la ultima solucion encontrada, de ser mayor define la solucion actual como 
+    esta combinacion
+    
+    Creador y fecha: Carlos 15/09/19
+    Ultima mofificacion: 27/09/19*/
+    
     public static ArrayList backtracking(ArrayList<Vertice> usados, ArrayList<Vertice> opciones, Vertice vertice, int max, ArrayList<Vertice> solucion, ArrayList<Vertice> combinacion){
                                                                 cD++;
         if(vertice == null){                                    lD+=2;
@@ -765,6 +809,11 @@ public class ProyectoAlgoritmos {
         return backtracking(usados, opciones, next, max, solucion, combinacion);
     }
     
+    /*Algoritmo que determina la suma de los beneficios de los vertices de una combinacion
+    
+    Creador y fecha: Carlos 15/09/19
+    Ultima mofificacion: 16/09/19*/
+    
     public static int sumarpesovertices(ArrayList<Vertice> vertices){
         int total = 0;                                          aD+=2;lD++;
         for(int i = 0; i < vertices.size(); i++){               aD++;cD+=2;lD++;
@@ -774,6 +823,11 @@ public class ProyectoAlgoritmos {
         }                                                       cD++;lD++;
         return total;
     }
+    
+    /*Determina el vertice de mayor beneficio que no este ya usado en una combinacion o sea adyacente a otro a usado
+    
+    Creador y fecha: Carlos 15/09/19
+    Ultima mofificacion: 16/09/19*/
     
     public static Vertice getMayorBeneficioBack(ArrayList<Vertice> vertices, ArrayList<Vertice> used){
         int maxB = 0;                                           aD++;lD++;
@@ -790,6 +844,11 @@ public class ProyectoAlgoritmos {
         return maxV;
     }
     
+    /*Algoritmo que introduce a la lista de vertices usados aquellos que sean adyacentes a un vertice determinado
+    
+    Creador y fecha: Carlos 15/09/19
+    Ultima mofificacion: 16/09/19*/
+    
     public static ArrayList<Vertice> marcarAdyacentesBack(ArrayList<Vertice> used, Vertice vertice){
         ArrayList<Arco> arcos = vertice.getArcos();             aD+=2;lD++;
         
@@ -800,11 +859,5 @@ public class ProyectoAlgoritmos {
             }
         }                                                       cD++;lD++;
         
-        return used;
-<<<<<<< HEAD
-    }
-    
-=======
-    }  
->>>>>>> 3dd6f77e536818357b6f05a4c64b247a5ab467ea
+        return used;}
 }

@@ -11,6 +11,13 @@ import java.util.ArrayList;
  *
  * @author Javier
  */
+
+/*
+    Clase que representa el grafo sobre el cual trabaja los algoritmos
+
+Creador y fecha: Javier 10/09/19
+Ultima modificacion: 15/09/19
+*/
 public class Grafo {
     ArrayList<Vertice> vertices;
     
