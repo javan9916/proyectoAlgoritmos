@@ -3,10 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/carlo/proyectoAlgoritmos/src/proyectoalgoritmos/Vertice.java</file>
             <file>file:/C:/Users/carlo/proyectoAlgoritmos/src/proyectoalgoritmos/Arco.java</file>
             <file>file:/C:/Users/carlo/proyectoAlgoritmos/src/proyectoalgoritmos/Grafo.java</file>
             <file>file:/C:/Users/carlo/proyectoAlgoritmos/src/proyectoalgoritmos/ProyectoAlgoritmos.java</file>
+=======
+            <file>file:/C:/Users/Javier/proyectoAlgoritmos/src/proyectoalgoritmos/ProyectoAlgoritmos.java</file>
+            <file>file:/C:/Users/Javier/proyectoAlgoritmos/src/proyectoalgoritmos/Grafo.java</file>
+>>>>>>> 3dd6f77e536818357b6f05a4c64b247a5ab467ea
         </group>
     </open-files>
 </project-private>
