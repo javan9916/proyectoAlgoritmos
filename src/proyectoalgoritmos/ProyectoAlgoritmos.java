@@ -15,6 +15,11 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class ProyectoAlgoritmos {
     
+    
+    /*Varaiables utilizadas en la medición de los algoritmos
+    Creador y fecha: Javier, 26/09/19
+    Ultima modificacion: 27/09/19*/
+    
     public static int aA;
     public static int aB;
     public static int aC;
@@ -28,12 +33,33 @@ public class ProyectoAlgoritmos {
     public static int lC;
     public static int lD;
     
+    /*Objeto grafo (g), donde se almacenan los vertices creados.
+    
+    verticesLocales y arcosLocales almecenan localmente los vertices y arcos que tambien son
+    almecenados dentro de g para un acceso a estos de forma mas rapida
+    
+    vertices determina la cantidad de arcos que seran creados, tanto en la creacion de matrices
+    quemadas como aleatorias. Arcos limita el numero de arcos creados en las matrices aleatorias
+    
+    matrizAdya será una variable general que se ajustara a la matriz seleccionada a traves de los menus
+    
+    Creador y fecha: Javier, 10/09/19
+    Ultima modificacion: 17/09/19*/
+    
     public static Grafo g;
     public static ArrayList<Vertice> verticesLocales;
     public static ArrayList<Arco> arcosLocales;
     public static int vertices;
     public static int arcos;
     public static int [][] matrizAdy;
+    
+    /* Las siguientes son las matrices de adyacencia que seran utilizadas a la hora de crear los grafos
+    matriz5C y matriz10C son usaas para el algoritmo D (pues este no requiere que sean aciclicas,
+    mientras que las demas son utilizadas para crear los grafos sobre los que trabajan los 
+    algoritmos a, b y c.
+    
+    Creador y fecha: Javier, 10/09/19
+    Ultima modificacion: 14/09/19*/
     
     public static int [][] matriz5C = { {1,1,1,1,1},
                                         {1,0,1,1,1},
@@ -178,6 +204,12 @@ public class ProyectoAlgoritmos {
         printVerts();
     }
     
+    /*menu por el cual se determina el algortimo a ejecutar
+    
+    Creador y fecha: Carlos 10/09/19
+    Ultima modificacion: 15/09/19
+    */
+    
     public static void menuAlgoritmo(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Algoritmos:\n"
@@ -210,6 +242,14 @@ public class ProyectoAlgoritmos {
                 break;
         }
     }
+    
+    
+    /*menu por el cual se determina el tamaño de la matriz, y por ende el grafo, sobre el cual se va
+    a trabajar. Se divide segun el algoritmo escogido.
+    
+    Creador y fecha: Carlos 10/09/19
+    Ultima modificacion: 15/09/19
+    */
     
     public static void menuTamano(String algoritmo){
         Scanner scanner = new Scanner(System.in);
@@ -292,6 +332,12 @@ public class ProyectoAlgoritmos {
         }
     }
     
+    /* Algoritmo de creacion de la matriz para los algortimos a, b y c. Define la matriz de adyacencia 
+    segun el tamaño de matriz elegida.
+    
+    Creador y fecha: Javier 11/09/19
+    Ultima modificacion: 15/09/19*/
+    
     public static void crearMatriz1(String algoritmo){
         matrizAdy = new int[vertices][vertices];
         Random random = new Random();
@@ -319,6 +365,12 @@ public class ProyectoAlgoritmos {
 
         llenarGrafo(algoritmo);
     }
+    
+     /* Algoritmo de creacion de la matriz para el algoritmo d. Define la matriz de adyacencia 
+    segun el tamaño de matriz elegida o crea una matriz aleatoria de ser un tamaño mayor a 10
+    
+    Creador y fecha: Javier 15/09/19
+    Ultima modificacion: 18/09/19*/
     
     public static void crearMatriz2(String algoritmo){
         matrizAdy = new int[vertices][vertices];
@@ -367,6 +419,15 @@ public class ProyectoAlgoritmos {
         llenarGrafo(algoritmo);
     }
     
+    /*Algoritmo que crea los vertices y arcos segun la matriz de adyacencia determinada gracias a los menus y 
+    los almacena dentro de g (el objeto grafo)
+    
+    Ademas llama al algoritmo seleccionado
+    
+    Creador y fecha: Javier 10/09/19
+    Ultima modificacion: 18/09/19
+    */
+    
     public static void llenarGrafo(String algoritmo) {
         g = new Grafo();
         verticesLocales = new ArrayList<>();
@@ -410,6 +471,11 @@ public class ProyectoAlgoritmos {
         }
     }
     
+    /*metodo que imprime los beneficios de los vertices creados
+    
+    Creador y fecha: Javier 15/09/19
+    Ultima modificacion 15/09/19*/
+    
     public static void printVerts() {
         System.out.print("Beneficios: ");
         for (int i = 0; i < vertices; i++) {
@@ -421,6 +487,11 @@ public class ProyectoAlgoritmos {
         
         menuAlgoritmo();
     }
+    
+    /*Imprime el resultado del algortime los vertices dentro de un grafo
+    
+    Creador y fecha: Javier 12/09/19
+    Ultima modificacion: 15/09/19*/
     
     public static void imprimirGrafo(Grafo u) {
         if (u != null) {
@@ -440,6 +511,13 @@ public class ProyectoAlgoritmos {
     
     // ------------------------* Algoritmo A *------------------------
     
+    /*primer algoritmos del proyecto, obtiene el vertice de mayor beneficio, lo marca a el y sus
+    adyacentes y repite de forma iterativa hasta que no puede encontrar mas vertices
+    mayores
+    
+    Creador y fecha: Javier 13/09/19
+    Ultima modificacion: 14/09/19*/
+    
     public static void algoritmoA() {
         Grafo u = new Grafo();                          aA++;lA++;
         Vertice mayor = getMayorBeneficio();            aA++;lA++;
@@ -452,6 +530,11 @@ public class ProyectoAlgoritmos {
         imprimirGrafo(u);                               lA++;
         menuAlgoritmo();                                lA++;
     }
+    
+    /* Metodo que busca el vertice mayor y llama al metodo que marca sus dayacentes
+    
+    Creador y fecha: Javier 13/09/19
+    Ultima modificacion: 14/09/19*/
     
     public static Vertice getMayorBeneficio() {
         ArrayList<Vertice> v = g.getVertices();         aA++;lA++;
@@ -472,6 +555,11 @@ public class ProyectoAlgoritmos {
         return mayor;
     }
 
+    /* Metodo que marca a todos los vertices adyacentes a un vertice determinado
+    
+    Creador y fecha: Javier 13/09/19
+    Ultima modificacion: 14/09/19*/
+    
     public static void marcarAdyacentes(Vertice v) {
         ArrayList<Arco> arcos = v.getArcos();           aA+=2;lA++;
         for (int i = 0; i < arcos.size(); i++) {        aA+=2;cA++;lA++;
@@ -480,6 +568,8 @@ public class ProyectoAlgoritmos {
     }
     
     // ------------------------* Algoritmo B *------------------------
+    
+    
     
     public static void algoritmoB(){
         Grafo u = new Grafo();                          aB++;lB++;
@@ -679,10 +769,4 @@ public class ProyectoAlgoritmos {
         return used;
     }
     
-    public static void imprimircomb(ArrayList<Vertice> verts){
-        for(Vertice vert : verts){
-            System.out.print(vert.getVertice() + ", ");
-        }
-        System.out.println("");
-    }   
 }
